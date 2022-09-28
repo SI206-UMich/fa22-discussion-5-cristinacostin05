@@ -3,8 +3,13 @@ import unittest
 # Counts the number of a's in a sentence (e.g., a string)
 def count_a(sentence):
 	total = 0
-	for i in range(len(sentence) - 1):
-		if i == 'a':
+	num = 0
+
+	for i in range(0, len(sentence)): 
+		num += 1
+
+	for i in range(0, num):
+		if sentence[i] == 'a':
 			total += 1
 	return total
 
@@ -43,11 +48,13 @@ class Warehouse:
 	# Returns the item in the warehouse with the most stock		
 	def get_max_stock(self):
 		max_stock = 0
-		for i in self.items:
-			if i.stock > max_stock:
-				max_stock = i.stock
+		max_stock_item = None
+		for item in self.items:
+			if item.stock > max_stock:
+				max_stock = item.stock
+				max_stock_item = item 
 
-		return max_stock
+		return max_stock_item
 
 
 	
@@ -55,7 +62,7 @@ class Warehouse:
 	def get_max_price(self):
 		max_price = 0
 		for i in self.items:
-			if i.price > max_price:
+			if i.price >= max_price:
 				max_price = i.price
 
 		return max_price	
@@ -75,11 +82,21 @@ class TestAllMethods(unittest.TestCase):
 
 	## Check to see whether count_a works
 	def test_count_a(self):
-		self.assertEqual(self.item1.count_a(" "), 0)
-		self.assertEqual(self.item1.count_a("a"), 1)
-		self.assertEqual(self.item1.count_a("I like apples"), 1)
-		self.assertEqual(self.item1.count_a("I like Runestone Academy"), 2)
-		self.assertEqual(self.item1.count_a("formula"), 1)
+		# word = Warehouse([self.item1, self.item2, self.item3])
+		num1 = count_a(self.item1.name)
+		self.assertEqual(num1, 0)
+		
+		num2 = count_a(self.item2.name)
+		self.assertEqual(num2, 0)
+
+		num3 = count_a(self.item3.name)
+		self.assertEqual(num3, 0)
+
+		num4 = count_a(self.item4.name)
+		self.assertEqual(num4, 0)
+
+		num5 = count_a(self.item5.name)
+		self.assertEqual(num5, 0)
 
 
 	## Check to see whether you can add an item to the warehouse
@@ -104,7 +121,12 @@ class TestAllMethods(unittest.TestCase):
 
 	# Check to see whether the warehouse correctly return the item with the highest price
 	def test_warehouse_max_price(self):
-		pass
+		Costco = Warehouse([self.item1, self.item2, self.item4])
+		mx_price = Costco.get_max_price()
+		self.assertEqual(mx_price, self.item4)
+		Costco.add_item(self.item3)
+		mx_price_new = Costco.get_max_price()
+		self.assertEqual(mx_price_new, self.item3)
 		
 
 def main():
