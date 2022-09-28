@@ -75,7 +75,11 @@ class TestAllMethods(unittest.TestCase):
 
 	## Check to see whether count_a works
 	def test_count_a(self):
-		# self.assertEqual()
+		self.assertEqual(self.item1.count_a(" "), 0)
+		self.assertEqual(self.item1.count_a("a"), 1)
+		self.assertEqual(self.item1.count_a("I like apples"), 1)
+		self.assertEqual(self.item1.count_a("I like Runestone Academy"), 2)
+		self.assertEqual(self.item1.count_a("formula"), 1)
 
 
 	## Check to see whether you can add an item to the warehouse
