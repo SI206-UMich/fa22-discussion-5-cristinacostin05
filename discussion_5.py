@@ -103,10 +103,11 @@ class TestAllMethods(unittest.TestCase):
 
 	## Check to see whether you can add an item to the warehouse
 	def test_add_item(self):
-		Target = Warehouse([self.item1, self.item2, self.item3])
+		Target = Warehouse([self.item1, self.item2])
 		Target.add_item(self.item3)
+		self.assertEqual(Target.items, [self.item1, self.item2,  self.item3])
 		Target.add_item(self.item4)
-		self.assertEqual(Target.items, [self.item1, self.item2, self.item3, self.item3, self.item4])
+		self.assertEqual(Target.items, [self.item1, self.item2,  self.item3, self.item4])
 
 
 	## Check to see whether warehouse correctly returns the item with the most stock
